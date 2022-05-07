@@ -13,6 +13,7 @@ use skh6075\s3ditemtools\skin\PlayerSkin;
 use skh6075\s3ditemtools\skin\SkinFactory;
 use skh6075\s3ditemtools\skin\SkinReflection;
 use function mkdir;
+use function file_exists;
 
 final class S3DItemToolS extends PluginBase implements Listener{
     use SingletonTrait;
@@ -22,9 +23,18 @@ final class S3DItemToolS extends PluginBase implements Listener{
     }
 
     protected function onEnable(): void{
-        mkdir($this->getDataFolder() . "models/");
-        mkdir($this->getDataFolder() . "images/");
-        mkdir($this->getDataFolder() . "skins/");
+        if(!file_exists($this->getDataFolder() . "models/")) {
+            mkdir($this->getDataFolder() . "models/");
+            return;
+        }
+        if(!file_exists($this->getDataFolder() . "images/")) {
+            mkdir($this->getDataFolder() . "images/");
+            return;
+        }
+        if(!file_exists($this->getDataFolder() . "skins/")) {
+            mkdir($this->getDataFolder() . "skins/");
+            return;
+        }
 
         SkinFactory::getInstance()->init();
 
